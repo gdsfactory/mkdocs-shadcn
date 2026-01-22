@@ -14,7 +14,8 @@
     {% endif %}
 
     {% set pages = current|selectattr("is_page")|sort(attribute="meta.order") %}
-    {% set sections = current|rejectattr("is_page")|list %}
+    {% set links = current|selectattr("is_link")|list %}
+    {% set sections = current|rejectattr("is_page")|rejectattr("is_link")|list %}
 
     {% if pages|length > 0 %}
     <div data-slot="sidebar-group" data-sidebar="group" class="relative flex w-full min-w-0 flex-col p-2">
@@ -38,8 +39,15 @@
             {{ section.title }}</div>
         <div data-slot="sidebar-group-content" data-sidebar="group-content" class="w-full text-sm">
             <ul data-slot="sidebar-menu" data-sidebar="menu" class="flex w-full min-w-0 flex-col gap-0.5">
-                {% for sidebar_item in section.children|selectattr("is_page")|sort(attribute="meta.order") %}
+                {% for item in section.children %}
+                {% if item.is_page or item.is_link %}
+                {% with sidebar_item = item %}
                 {% include "components/sidebar_item.html" %}
+                {% endwith %}
+                {% else %}
+                {# Nested section (3rd level) #}
+                {% include "components/sidebar_section.html" %}
+                {% endif %}
                 {% endfor %}
             </ul>
         </div>
@@ -47,6 +55,19 @@
     {% endif %}
     {% endfor %}
 
+    {% if links|length > 0 %}
+    <div data-slot="sidebar-group" data-sidebar="group" class="relative flex w-full min-w-0 flex-col p-2">
+        <div data-slot="sidebar-group-content" data-sidebar="group-content" class="w-full text-sm">
+            <ul data-slot="sidebar-menu" data-sidebar="menu" class="flex w-full min-w-0 flex-col gap-0.5">
+                {% for link in links %}
+                {% with sidebar_item = link %}
+                {% include "components/sidebar_item.html" %}
+                {% endwith %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
 
     {% endif %}
 </div>
