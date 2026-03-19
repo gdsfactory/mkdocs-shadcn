@@ -3,47 +3,47 @@ td.linenos .normal { color: inherit; background-color: transparent; padding-left
 span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
 td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
-.codehilite .hll { background-color: #ffffcc }
-.codehilite { background: #ffffff; }
-.codehilite .c { color: #888; font-style: italic } /* Comment */
-.codehilite .err { border: 1px solid #F00 } /* Error */
-.codehilite .k { font-weight: bold; text-decoration: underline } /* Keyword */
-.codehilite .ch { color: #888; font-style: italic } /* Comment.Hashbang */
-.codehilite .cm { color: #888; font-style: italic } /* Comment.Multiline */
-.codehilite .cp { color: #888; font-weight: bold } /* Comment.Preproc */
-.codehilite .cpf { color: #888; font-style: italic } /* Comment.PreprocFile */
-.codehilite .c1 { color: #888; font-style: italic } /* Comment.Single */
-.codehilite .cs { color: #888; font-weight: bold } /* Comment.Special */
-.codehilite .kc { font-weight: bold; text-decoration: underline } /* Keyword.Constant */
-.codehilite .kd { font-weight: bold; font-style: italic; text-decoration: underline } /* Keyword.Declaration */
-.codehilite .kn { font-weight: bold; text-decoration: underline } /* Keyword.Namespace */
-.codehilite .kp { font-weight: bold; text-decoration: underline } /* Keyword.Pseudo */
-.codehilite .kr { font-weight: bold; text-decoration: underline } /* Keyword.Reserved */
-.codehilite .kt { font-weight: bold; text-decoration: underline } /* Keyword.Type */
-.codehilite .s { color: #666; font-style: italic } /* Literal.String */
-.codehilite .nb { font-weight: bold; font-style: italic } /* Name.Builtin */
-.codehilite .nc { color: #666; font-weight: bold; font-style: italic } /* Name.Class */
-.codehilite .no { color: #666; font-weight: bold; font-style: italic } /* Name.Constant */
-.codehilite .nf { color: #666; font-weight: bold; font-style: italic } /* Name.Function */
-.codehilite .nn { color: #666; font-weight: bold; font-style: italic } /* Name.Namespace */
-.codehilite .nv { color: #666; font-weight: bold; font-style: italic } /* Name.Variable */
-.codehilite .ow { font-weight: bold } /* Operator.Word */
-.codehilite .sa { color: #666; font-style: italic } /* Literal.String.Affix */
-.codehilite .sb { color: #666; font-style: italic } /* Literal.String.Backtick */
-.codehilite .sc { color: #666; font-style: italic } /* Literal.String.Char */
-.codehilite .dl { color: #666; font-style: italic } /* Literal.String.Delimiter */
-.codehilite .sd { color: #666; font-style: italic } /* Literal.String.Doc */
-.codehilite .s2 { color: #666; font-style: italic } /* Literal.String.Double */
-.codehilite .se { color: #666; font-style: italic } /* Literal.String.Escape */
-.codehilite .sh { color: #666; font-style: italic } /* Literal.String.Heredoc */
-.codehilite .si { color: #666; font-style: italic } /* Literal.String.Interpol */
-.codehilite .sx { color: #666; font-style: italic } /* Literal.String.Other */
-.codehilite .sr { color: #666; font-style: italic } /* Literal.String.Regex */
-.codehilite .s1 { color: #666; font-style: italic } /* Literal.String.Single */
-.codehilite .ss { color: #666; font-style: italic } /* Literal.String.Symbol */
-.codehilite .bp { font-weight: bold; font-style: italic } /* Name.Builtin.Pseudo */
-.codehilite .fm { color: #666; font-weight: bold; font-style: italic } /* Name.Function.Magic */
-.codehilite .vc { color: #666; font-weight: bold; font-style: italic } /* Name.Variable.Class */
-.codehilite .vg { color: #666; font-weight: bold; font-style: italic } /* Name.Variable.Global */
-.codehilite .vi { color: #666; font-weight: bold; font-style: italic } /* Name.Variable.Instance */
-.codehilite .vm { color: #666; font-weight: bold; font-style: italic } /* Name.Variable.Magic */
+:is(.codehilite,.highlight) .hll { background-color: #ffffcc }
+:is(.codehilite,.highlight) { background: #ffffff; }
+:is(.codehilite,.highlight) .c { color: #888; font-style: italic } /* Comment */
+:is(.codehilite,.highlight) .err { border: 1px solid #F00 } /* Error */
+:is(.codehilite,.highlight) .k { font-weight: bold; text-decoration: underline } /* Keyword */
+:is(.codehilite,.highlight) .ch { color: #888; font-style: italic } /* Comment.Hashbang */
+:is(.codehilite,.highlight) .cm { color: #888; font-style: italic } /* Comment.Multiline */
+:is(.codehilite,.highlight) .cp { color: #888; font-weight: bold } /* Comment.Preproc */
+:is(.codehilite,.highlight) .cpf { color: #888; font-style: italic } /* Comment.PreprocFile */
+:is(.codehilite,.highlight) .c1 { color: #888; font-style: italic } /* Comment.Single */
+:is(.codehilite,.highlight) .cs { color: #888; font-weight: bold } /* Comment.Special */
+:is(.codehilite,.highlight) .kc { font-weight: bold; text-decoration: underline } /* Keyword.Constant */
+:is(.codehilite,.highlight) .kd { font-weight: bold; font-style: italic; text-decoration: underline } /* Keyword.Declaration */
+:is(.codehilite,.highlight) .kn { font-weight: bold; text-decoration: underline } /* Keyword.Namespace */
+:is(.codehilite,.highlight) .kp { font-weight: bold; text-decoration: underline } /* Keyword.Pseudo */
+:is(.codehilite,.highlight) .kr { font-weight: bold; text-decoration: underline } /* Keyword.Reserved */
+:is(.codehilite,.highlight) .kt { font-weight: bold; text-decoration: underline } /* Keyword.Type */
+:is(.codehilite,.highlight) .s { color: #666; font-style: italic } /* Literal.String */
+:is(.codehilite,.highlight) .nb { font-weight: bold; font-style: italic } /* Name.Builtin */
+:is(.codehilite,.highlight) .nc { color: #666; font-weight: bold; font-style: italic } /* Name.Class */
+:is(.codehilite,.highlight) .no { color: #666; font-weight: bold; font-style: italic } /* Name.Constant */
+:is(.codehilite,.highlight) .nf { color: #666; font-weight: bold; font-style: italic } /* Name.Function */
+:is(.codehilite,.highlight) .nn { color: #666; font-weight: bold; font-style: italic } /* Name.Namespace */
+:is(.codehilite,.highlight) .nv { color: #666; font-weight: bold; font-style: italic } /* Name.Variable */
+:is(.codehilite,.highlight) .ow { font-weight: bold } /* Operator.Word */
+:is(.codehilite,.highlight) .sa { color: #666; font-style: italic } /* Literal.String.Affix */
+:is(.codehilite,.highlight) .sb { color: #666; font-style: italic } /* Literal.String.Backtick */
+:is(.codehilite,.highlight) .sc { color: #666; font-style: italic } /* Literal.String.Char */
+:is(.codehilite,.highlight) .dl { color: #666; font-style: italic } /* Literal.String.Delimiter */
+:is(.codehilite,.highlight) .sd { color: #666; font-style: italic } /* Literal.String.Doc */
+:is(.codehilite,.highlight) .s2 { color: #666; font-style: italic } /* Literal.String.Double */
+:is(.codehilite,.highlight) .se { color: #666; font-style: italic } /* Literal.String.Escape */
+:is(.codehilite,.highlight) .sh { color: #666; font-style: italic } /* Literal.String.Heredoc */
+:is(.codehilite,.highlight) .si { color: #666; font-style: italic } /* Literal.String.Interpol */
+:is(.codehilite,.highlight) .sx { color: #666; font-style: italic } /* Literal.String.Other */
+:is(.codehilite,.highlight) .sr { color: #666; font-style: italic } /* Literal.String.Regex */
+:is(.codehilite,.highlight) .s1 { color: #666; font-style: italic } /* Literal.String.Single */
+:is(.codehilite,.highlight) .ss { color: #666; font-style: italic } /* Literal.String.Symbol */
+:is(.codehilite,.highlight) .bp { font-weight: bold; font-style: italic } /* Name.Builtin.Pseudo */
+:is(.codehilite,.highlight) .fm { color: #666; font-weight: bold; font-style: italic } /* Name.Function.Magic */
+:is(.codehilite,.highlight) .vc { color: #666; font-weight: bold; font-style: italic } /* Name.Variable.Class */
+:is(.codehilite,.highlight) .vg { color: #666; font-weight: bold; font-style: italic } /* Name.Variable.Global */
+:is(.codehilite,.highlight) .vi { color: #666; font-weight: bold; font-style: italic } /* Name.Variable.Instance */
+:is(.codehilite,.highlight) .vm { color: #666; font-weight: bold; font-style: italic } /* Name.Variable.Magic */

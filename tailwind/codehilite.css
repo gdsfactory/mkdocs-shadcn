@@ -1,45 +1,68 @@
-article .codehilite table.codehilitetable {
+article .codehilite table.codehilitetable,
+article .highlight table.highlighttable {
 	border-collapse: unset;
 	margin: 0;
 }
 
-article .codehilite .linenos {
+article .codehilite .linenos,
+article .highlight .linenos {
 	@apply text-sm text-right sticky left-0 text-[var(--color-code-number)] pr-6;
 }
 
-article .codehilite .hll .linenos {
+article .codehilite .hll .linenos,
+article .highlight .hll .linenos {
 	@apply bg-transparent;
 }
 
-article .codehilite td.linenos {
+article .codehilite td.linenos,
+article .highlight td.linenos {
 	@apply pr-0;
 }
 
-article .codehilite:has(& > .codehilitetable) {
+article .codehilite:has(& > .codehilitetable),
+article .highlight:has(& > .highlighttable) {
 	@apply overflow-auto;
 }
 
 article table.codehilitetable pre,
-article table.codehilitetable code {
+article table.codehilitetable code,
+article table.highlighttable pre,
+article table.highlighttable code {
 	@apply overflow-visible h-full;
 }
 
-article table.codehilitetable tbody tr td {
+article table.codehilitetable tbody tr td,
+article table.highlighttable tbody tr td {
 	@apply border-0;
 }
 
-article table.codehilitetable pre {
+article table.codehilitetable pre,
+article table.highlighttable pre {
 	@apply px-0 m-0;
 }
 
-article .codehilite {
+article .codehilite,
+article .highlight {
 	@apply rounded-xl relative mt-4;
 }
 
-article .codehilite pre {
+article .codehilite pre,
+article .highlight pre {
 	@apply mb-0 mt-0 overflow-auto;
 }
 
-article .codehilite code a {
+article .codehilite code a,
+article .highlight code a {
 	@apply no-underline cursor-text;
+}
+
+/* Plain text output blocks (e.g. notebook cell outputs) — subtle style */
+article .language-text.highlight,
+article .language-text.codehilite {
+	@apply border-0 bg-transparent rounded-none mt-0 pl-4 border-l-2 border-border;
+}
+
+article .language-text.highlight pre,
+article .language-text.codehilite pre {
+	@apply text-muted-foreground bg-transparent py-2;
 }
