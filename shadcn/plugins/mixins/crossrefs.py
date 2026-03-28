@@ -20,58 +20,60 @@ BACKTICK_REF_RE = re.compile(r"(?<!\[)`([A-Za-z_][\w.]*)`(?!\])")
 class CrossRefsMixin(Mixin):
     """Auto-link backtick references to mkdocstrings anchors.
 
-    When mkdocstrings is configured, this mixin inspects the packages found
-    under the handler's `paths` config and auto-converts backtick references
-    like `pkg.SomeClass` into mkdocstrings cross-reference links
-    [`pkg.SomeClass`][pkg.SomeClass].
+    When mkdocstrings is configured, this mixin auto-converts backtick
+    references like `SomeClass` into mkdocstrings cross-reference links
+    [`SomeClass`][pkg.SomeClass].
 
-    Supports an `aliases` dict in the theme config for project-specific
-    name mappings (e.g. `compute_modes` -> `pkg.compute_modes_impl`).
+    Configure via theme config:
+        crossref_modules: list of dotted module names to search
+            (default: auto-discovered top-level packages from mkdocstrings paths)
+        crossref_aliases: dict mapping short names to fully qualified names
     """
 
     crossrefs_modules: List = []
     crossrefs_aliases: Dict[str, str] = {}
     crossrefs_activated: bool = False
-    crossrefs_package_name: Optional[str] = None
 
     def on_config(self, config: MkDocsConfig):
         plugin = config["plugins"].get("mkdocstrings", None)
         if plugin is None:
             return super().on_config(config)
 
-        # Get the aliases from theme config
         self.crossrefs_aliases = config.theme.get("crossref_aliases", {})
-
-        # Find package names from mkdocstrings paths
-        handler_config = plugin.config.get("handlers", {}).get("python", {})
-        paths = handler_config.get("paths", [])
-
         self.crossrefs_modules = []
-        self.crossrefs_package_name = None
 
-        for path in paths:
-            # Try to discover top-level packages in the given paths
+        # If user specified explicit modules, use those
+        explicit_modules = config.theme.get("crossref_modules", None)
+
+        if explicit_modules is not None:
+            for mod_name in explicit_modules:
+                try:
+                    mod = importlib.import_module(mod_name)
+                    self.crossrefs_modules.append((mod_name, mod))
+                    logger.info(f"Cross-refs: loaded module '{mod_name}'.")
+                except Exception as e:
+                    logger.warning(f"Cross-refs: could not import '{mod_name}': {e}")
+        else:
+            # Auto-discover top-level packages from mkdocstrings paths
             import os
 
-            if not os.path.isdir(path):
-                continue
-            for entry in sorted(os.listdir(path)):
-                entry_path = os.path.join(path, entry)
-                if os.path.isdir(entry_path) and os.path.isfile(
-                    os.path.join(entry_path, "__init__.py")
-                ):
-                    try:
-                        mod = importlib.import_module(entry)
-                        self.crossrefs_modules.append((entry, mod))
-                        if self.crossrefs_package_name is None:
-                            self.crossrefs_package_name = entry
-                        logger.info(
-                            f"Cross-refs: loaded module '{entry}' for auto-linking."
-                        )
-                    except Exception as e:
-                        logger.debug(
-                            f"Cross-refs: could not import '{entry}': {e}"
-                        )
+            handler_config = plugin.config.get("handlers", {}).get("python", {})
+            paths = handler_config.get("paths", [])
+
+            for path in paths:
+                if not os.path.isdir(path):
+                    continue
+                for entry in sorted(os.listdir(path)):
+                    entry_path = os.path.join(path, entry)
+                    if os.path.isdir(entry_path) and os.path.isfile(
+                        os.path.join(entry_path, "__init__.py")
+                    ):
+                        try:
+                            mod = importlib.import_module(entry)
+                            self.crossrefs_modules.append((entry, mod))
+                            logger.info(f"Cross-refs: loaded module '{entry}'.")
+                        except Exception as e:
+                            logger.debug(f"Cross-refs: could not import '{entry}': {e}")
 
         self.crossrefs_activated = len(self.crossrefs_modules) > 0
 
@@ -85,7 +87,6 @@ class CrossRefsMixin(Mixin):
 
     def _resolve_ref(self, name: str) -> Optional[str]:
         """Resolve a backtick name to its fully qualified mkdocstrings anchor."""
-        # Strip leading package prefix if present
         *prefix, short = name.split(".")
         if prefix and prefix[0] not in {n for n, _ in self.crossrefs_modules}:
             return None
@@ -94,22 +95,10 @@ class CrossRefsMixin(Mixin):
         if short in self.crossrefs_aliases:
             return self.crossrefs_aliases[short]
 
-        # Search through loaded modules and their submodules
+        # Check each module directly — no recursion
         for mod_name, mod in self.crossrefs_modules:
             if hasattr(mod, short):
                 return f"{mod_name}.{short}"
-            # Check submodules
-            for attr_name in dir(mod):
-                attr = getattr(mod, attr_name, None)
-                if (
-                    attr is not None
-                    and hasattr(attr, "__module__")
-                    and hasattr(attr, short)
-                ):
-                    # It's a submodule that has this name
-                    submod_name = f"{mod_name}.{attr_name}"
-                    if hasattr(attr, short):
-                        return f"{submod_name}.{short}"
 
         return None
 
@@ -131,10 +120,8 @@ class CrossRefsMixin(Mixin):
         blocks = markdown.split("```")
         for i, block in enumerate(blocks):
             if i % 2 == 0:
-                # Process non-code blocks
                 blocks[i] = self._insert_cross_refs(block)
             else:
-                # Restore code block delimiters
                 blocks[i] = f"```{block}```"
 
         markdown = "".join(blocks)

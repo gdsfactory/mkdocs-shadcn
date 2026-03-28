@@ -68,14 +68,11 @@ class DefaultsMixin(Mixin):
             if isinstance(ext, str):
                 existing.add(ext)
 
-        # mdx_configs holds extension options
-        mdx_configs = config.get("mdx_configs", {})
-
         for ext_name, ext_defaults in DEFAULT_MARKDOWN_EXTENSIONS.items():
             if ext_name not in existing:
                 config.markdown_extensions.append(ext_name)
-                if ext_defaults and ext_name not in mdx_configs:
-                    mdx_configs[ext_name] = ext_defaults
+                if ext_defaults and ext_name not in config["mdx_configs"]:
+                    config["mdx_configs"][ext_name] = ext_defaults
                 logger.debug(f"Added default markdown extension: {ext_name}")
 
     def _inject_mkdocstrings_defaults(self, config: MkDocsConfig):
