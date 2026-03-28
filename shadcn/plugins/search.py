@@ -15,20 +15,28 @@ from shadcn.filters import (
     parse_author,
     setattribute,
 )
+from shadcn.plugins.mixins.crossrefs import CrossRefsMixin
+from shadcn.plugins.mixins.defaults import DefaultsMixin
 from shadcn.plugins.mixins.dev import DevServerMixin
 from shadcn.plugins.mixins.git import GitTimestampsMixin
 from shadcn.plugins.mixins.katex import KatexMixin
 from shadcn.plugins.mixins.markdown import MarkdownMixin
+from shadcn.plugins.mixins.matplotlib import MatplotlibMixin
 from shadcn.plugins.mixins.mkdocstrings import MkdocstringsMixin
+from shadcn.plugins.mixins.myst_admonitions import MystAdmonitionsMixin
 from shadcn.plugins.mixins.order import OrderMixin
 from shadcn.plugins.mixins.table import TableMixin
 
 
 class SearchPlugin(
+    DefaultsMixin,
     GitTimestampsMixin,
     DevServerMixin,
     OrderMixin,
     MkdocstringsMixin,
+    CrossRefsMixin,
+    MystAdmonitionsMixin,
+    MatplotlibMixin,
     KatexMixin,
     TableMixin,
     MarkdownMixin,
