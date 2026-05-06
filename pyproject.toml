@@ -36,6 +36,7 @@ shadcn = "shadcn"
 "shadcn/search" = "shadcn.plugins.search:SearchPlugin"
 "shadcn/excalidraw" = "shadcn.plugins.excalidraw:ExcalidrawPlugin"
 "shadcn/autonumber" = "shadcn.plugins.autonumber:AutoNumberPlugin"
+"shadcn/myst" = "shadcn.plugins.myst:MystPlugin"
 
 [build-system]
 requires = ["hatchling"]
